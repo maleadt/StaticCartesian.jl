@@ -1,0 +1,7 @@
+name = "StaticCartesian"
+uuid = "a65d7333-7dcf-4884-aae5-915a40b48238"
+authors = ["Tim Besard <tim.besard@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+Logging = "56ddb016-857b-54e1-b83d-db4d58db5568"
