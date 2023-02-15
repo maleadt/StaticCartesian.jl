@@ -7,7 +7,7 @@
 
 # powers of 2
 for k in 1:31
-    d = 2^k
+    d = big(2)^k
     M, s, a = StaticCartesian.signed_magic(32, d)
     @test M%UInt32 == 0x80000001
     @test s == k-1
@@ -39,9 +39,9 @@ end # signed
 
 # powers of 2
 for k in 1:31
-    d = 2^k
+    d = big(2)^k
     M, s, a = StaticCartesian.unsigned_magic(32, d)
-    @test M%UInt32 == 2^(32-big(k))
+    @test M%UInt32 == big(2)^(32-k)
     @test s == 0
 end
 
@@ -77,7 +77,7 @@ end # W=32
 
 # powers of 2
 for k in 1:31
-    d = 2^k
+    d = big(2)^k
     M, s, a = StaticCartesian.signed_magic(64, d)
     @test M%UInt64 == 0x8000000000000001
     @test s == k-1
@@ -109,9 +109,9 @@ end # signed
 
 # powers of 2
 for k in 1:31
-    d = 2^k
+    d = big(2)^k
     M, s, a = StaticCartesian.unsigned_magic(64, d)
-    @test M%UInt64 == 2^(64-big(k))
+    @test M%UInt64 == big(2)^(64-k)
     @test s == 0
     @test a == false
 end

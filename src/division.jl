@@ -20,24 +20,24 @@ signed_magic(W, d) = signed_magic(big(W), big(d))
 function signed_magic(W::BigInt, d::BigInt)
     # section 10-4
     @assert W >= 3
-    @assert 2 <= d <= 2^(W-1)
+    @assert 2 <= d <= big(2)^(W-1)
 
-    n_c = 2^(W-1) - rem(2^(W-1), d) - 1
+    n_c = big(2)^(W-1) - rem(big(2)^(W-1), d) - 1
 
     # find least p and m
     for p in W:2*W
         # shift amount
         s = p - W
 
-        if 2^p > n_c * (d - rem(2^p, d))        # (6)
-            m = (2^p + d - rem(2^p, d)) ÷ d     # (5)
+        if big(2)^p > n_c * (d - rem(big(2)^p, d))        # (6)
+            m = (big(2)^p + d - rem(big(2)^p, d)) ÷ d     # (5)
 
             # reinterpret the magic number as a signed integer
-            M, a = if 0 <= m <= 2^(W-1)
+            M, a = if 0 <= m <= big(2)^(W-1)
                 m, false
             else
                 # need to truncate, so we'll have to adapt the generated code
-                m - 2^W, true
+                m - big(2)^W, true
             end
             return (; M, s, a)
         end
@@ -74,24 +74,24 @@ unsigned_magic(W, d) = unsigned_magic(big(W), big(d))
 function unsigned_magic(W::BigInt, d::BigInt)
     # section 10-9
     @assert W >= 1
-    @assert 1 <= d <= 2^W
+    @assert 1 <= d <= big(2)^W
 
-    n_c = 2^W - rem(2^W, d) - 1
+    n_c = big(2)^W - rem(big(2)^W, d) - 1
 
     # find least p and m
     for p in W:2*W
         # shift amount
         s = p - W
 
-        if 2^p > n_c * (d - 1 - rem(2^p - 1, d))    # (27)
-            m = (2^p + d - 1 - rem(2^p - 1, d)) ÷ d # (26)
+        if big(2)^p > n_c * (d - 1 - rem(big(2)^p - 1, d))    # (27)
+            m = (big(2)^p + d - 1 - rem(big(2)^p - 1, d)) ÷ d # (26)
 
             # reinterpret the magic number as a signed integer
-            M, a = if 0 <= m <= 2^W
+            M, a = if 0 <= m <= big(2)^W
                 m, false
             else
                 # need to truncate, so we'll have to adapt the generated code
-                m - 2^W, true
+                m - big(2)^W, true
             end
             return (; M, s, a)
         end
